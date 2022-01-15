@@ -14,12 +14,14 @@ def evaluate_model(data):
     names, estimators, grids = model.get_name_list(), model.get_model_list(), model.get_grid_list()
     best_score = 0
     best_estimator = None
+    best_estimator_name = None
     
     for name, classifier, params in zip(names, estimators, grids):
         grid_search = GridSearchCV(classifier, param_grid=params, n_jobs=-1,scoring = 'f1')
         clf = grid_search.fit(X_train, y_train)
         
         if clf.best_score_ > best_score:
+            best_estimator_name = name
             best_estimator = clf.best_estimator_
             best_score = clf.best_score_
         
@@ -30,4 +32,4 @@ def evaluate_model(data):
     sns.heatmap(confusion_matrix(y_val,y_pred,normalize = 'all'),annot = True,cmap = plt.cm.Blues)
     plt.show()
     
-    return best_estimator, best_score
+    return best_estimator_name, best_estimator, best_score

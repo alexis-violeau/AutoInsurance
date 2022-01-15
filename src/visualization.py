@@ -7,12 +7,10 @@ cat_columns = ['TARGET_AMT', 'MSTATUS', 'SEX', 'EDUCATION','JOB', 'CAR_USE', 'CA
 target = ['TARGET_FLAG']
 
 
-def visualize_data(df,train = False):
+def visualize_data(df):
     fig, ax = plt.subplots(nrows = len(quant_columns + cat_columns) + 1,figsize = (10,100))
     
-    hue = None
-    if train:
-        hue = 'TARGET_FLAG'
+    hue = 'TARGET_FLAG'
 
     for (i,col) in enumerate(quant_columns + cat_columns):
         sns.histplot(df, x = col, hue = hue, ax = ax[i], kde = (col in quant_columns),common_norm=False, stat='density')

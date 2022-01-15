@@ -3,10 +3,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
 
-LogisticRegression_params = {'C' : [0.1,1]}
-DecisionTreeClassifier_params = {'ccp_alpha' : [0,1]}
-RandomForestClassifier_params = {'ccp_alpha' : [0,1]}
-GradientBoostingClassfier_params = {'max_depth' : [3,5],'subsample' : [0.5,1], 'max_features' : ['sqrt',None]}
+Logistic_params = {'C' : [0.1,1]}
+DecisionTree_params = {'ccp_alpha' : [0,1]}
+RandomForest_params = {'ccp_alpha' : [0,1]}
+GradientBoosting_params = {'max_depth' : [3,5],'subsample' : [0.5,1], 'max_features' : ['sqrt',None]}
 
 
 def get_names_list():
@@ -15,10 +15,10 @@ def get_names_list():
     Returns:
         [str]: [model name]
     """    
-    return ['LogisticRegression',
-            'DecisionTreeClassifier',
-            'RandomForestClassifier',
-            'GradientBoostingClassifier']
+    return ['Logistic',
+            'DecisionTree',
+            'RandomForest',
+            'GradientBoosting']
 
 def get_models_list():
     """Return list of model instances
@@ -37,7 +37,7 @@ def get_params_list():
     Returns:
         [dict]: [model parameters]
     """    
-    return [LogisticRegression_params,
-            DecisionTreeClassifier_params,
-            RandomForestClassifier_params,
-            GradientBoostingClassfier_params]
+    return [Logistic_params,
+            DecisionTree_params,
+            RandomForest_params,
+            GradientBoosting_params]
