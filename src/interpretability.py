@@ -5,7 +5,14 @@ import shap
 
 
 def explain(estimator, estimator_type, feature_names, data = None):
-    
+    """Explain estimator according to its type
+
+    Args:
+        estimator (model): model instance to explain
+        estimator_type (str): model type
+        feature_names (list): list of feature names
+        data (np.array, optional): input data used for some interpretability techniques. Defaults to None.
+    """    
     if estimator_type == 'LogisticRegression':
         explain_logistic(estimator,feature_names)
     if estimator_type == 'DecisionTree':
@@ -18,6 +25,7 @@ def explain(estimator, estimator_type, feature_names, data = None):
     
     
 def explain_logistic(estimator,feature_names):
+
     
     p = len(feature_names)
 

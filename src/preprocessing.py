@@ -13,11 +13,10 @@ def preprocess_data(df):
     """Apply data transformation to training and test set.
 
     Args:
-        train (pandas.DataFrame): training set (should include "TARGET_FLAG" column)
-        test (pandas.DataFrame): test set
+        df (pandas.DataFrame): training set (should include "TARGET_FLAG" column)
 
     Returns:
-        (numpy.array,numpy.array,numpy.array): (X_train_preprocess, y_train, X_test_preprocess)
+        np.array tuple, list: (X_train_preprocess, X_val_preprocess, y_train, y_val), features_names_preprocess
     """    
     
     # We binarise EDUCATION and JOB column to reduce the number of dimension for one hot encoding

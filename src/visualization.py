@@ -8,6 +8,11 @@ target = ['TARGET_FLAG']
 
 
 def visualize_data(df):
+    """Display exploratory data analysis
+
+    Args:
+        df (pandas.DataFrame): data to analyze
+    """    
     fig, ax = plt.subplots(nrows = len(quant_columns + cat_columns) + 1,figsize = (10,100))
     
     hue = 'TARGET_FLAG'

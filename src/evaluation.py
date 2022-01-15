@@ -6,6 +6,12 @@ from sklearn.metrics import confusion_matrix
 
     
 def evaluate_model(data):
+    
+    """Search best model and best parameters through cross validation
+
+    Returns:
+        (str, model, float): (model name, model instance, model mean cross validation score)
+    """    
     (X_train_preprocess, X_val_preprocess, y_train, y_val) = data
     
     names, estimators, grids = model.get_names_list(), model.get_models_list(), model.get_params_list()
