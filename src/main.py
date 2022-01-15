@@ -11,10 +11,10 @@ print('Exploratory Data Analysis')
 visualization.visualize_data(df = df)
 
 print('Preprocessing Data')
-X_train_preprocess, y_train, X_val_preprocess, y_val = preprocessing.preprocess_data(df = df)
+data, features_names_preprocess = preprocessing.preprocess_data(df = df)
 
 print('Looking for best model')
-best_estimator_name, best_estimator, best_score = evaluation.evaluate_model(data = (X_train_preprocess, y_train, X_val_preprocess, y_val))
+best_estimator_name, best_estimator, best_score = evaluation.evaluate_model(data = data)
 
 print('Explain model')
-interpretability.explain(estimator = best_estimator, estimator_type = best_estimator_name, data = X_val_preprocess)
+interpretability.explain(estimator = best_estimator, estimator_type = best_estimator_name, feature_names = features_names_preprocess,data = data[0])

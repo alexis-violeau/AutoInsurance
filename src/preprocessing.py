@@ -31,7 +31,7 @@ def preprocess_data(df):
                                      remainder = 'drop')
     
     
-    X_train,y_train,X_val,y_val = train_test_split(df[features],df[target],train_size = 0.7, stratify = df[target])
+    X_train,X_val,y_train,y_val = train_test_split(df[features],df[target],train_size = 0.7, stratify = df[target])
     
     X_train_preprocess = np.nan_to_num(preprocessor.fit_transform(X_train),0)
     X_val_preprocess = np.nan_to_num(preprocessor.transform(X_val),0)
@@ -39,7 +39,9 @@ def preprocess_data(df):
     y_train = y_train.values.ravel()
     y_val = y_val.values.ravel()
     
-    return X_train_preprocess, y_train, X_val_preprocess, y_val
+    features_names_preprocess = preprocessor.get_feature_names_out(X_train.columns)
+    
+    return (X_train_preprocess, X_val_preprocess, y_train, y_val), features_names_preprocess
     
     
     
