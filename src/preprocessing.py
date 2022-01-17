@@ -9,7 +9,7 @@ features = quant_features + cat_features
 target = ['TARGET_FLAG']
 
 
-def preprocess_data(df):
+def preprocess_data(df_train,df_test):
     """Apply data transformation to training and test set.
 
     Args:
@@ -20,9 +20,13 @@ def preprocess_data(df):
     """    
     
     # We binarise EDUCATION and JOB column to reduce the number of dimension for one hot encoding
-    df['HIGHSCHOOL'] = df.EDUCATION.isin(['Bachelors','Masters','PhD'])
+    df_train['HIGHSCHOOL'] = df_train.EDUCATION.isin(['Bachelors','Masters','PhD'])
+    df_test['HIGHSCHOOL'] = df_test.EDUCATION.isin(['Bachelors','Masters','PhD'])
 
-    df['HIGHSPC'] = df.JOB.isin(['Doctor','Lawyer','Manager'])
+
+    df_train['HIGHSPC'] = df_train.JOB.isin(['Doctor','Lawyer','Manager'])
+    df_test['HIGHSPC'] = df_test.JOB.isin(['Doctor','Lawyer','Manager'])
+
     
     # We one hot encode categorical features and scale numerical features
     preprocessor = ColumnTransformer([("quant_columns",StandardScaler(),quant_features),
@@ -30,7 +34,8 @@ def preprocess_data(df):
                                      remainder = 'drop')
     
     
-    X_train,X_val,y_train,y_val = train_test_split(df[features],df[target],train_size = 0.7, stratify = df[target])
+    
+    X_train,X_val,y_train,y_val = train_test_split(df_train[features],df_train[target],train_size = 0.7, stratify = df_train[target])
     
     X_train_preprocess = np.nan_to_num(preprocessor.fit_transform(X_train),0)
     X_val_preprocess = np.nan_to_num(preprocessor.transform(X_val),0)
@@ -40,7 +45,9 @@ def preprocess_data(df):
     
     features_names_preprocess = preprocessor.get_feature_names_out(X_train.columns)
     
-    return (X_train_preprocess, X_val_preprocess, y_train, y_val), features_names_preprocess
+    X_test_preprocess = np.nan_to_num(preprocessor.transform(df_test[features]),0)
+    
+    return (X_train_preprocess, X_val_preprocess, y_train, y_val), features_names_preprocess, X_test_preprocess
     
     
     

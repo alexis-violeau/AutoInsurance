@@ -31,8 +31,6 @@ def evaluate_model(data):
         score = clf.score(X_val_preprocess, y_val)
         print("{} score: {}".format(name, score))
         
-    y_pred = best_estimator.predict(X_val_preprocess)
-    sns.heatmap(confusion_matrix(y_val,y_pred,normalize = 'all'),annot = True,cmap = plt.cm.Blues)
-    plt.show()
+    print('Best model : {}'.format(best_estimator))
     
     return best_estimator_name, best_estimator, best_score

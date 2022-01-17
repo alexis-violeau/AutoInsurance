@@ -3,18 +3,26 @@ import preprocessing
 import visualization
 import evaluation
 import interpretability
+import pandas as pd
 
-print('Loading Data')
-df = loading.load_data()
+print('Loading Data:')
 
-print('Exploratory Data Analysis')
-visualization.visualize_data(df = df)
+df_train, df_test = loading.load_data()
+print('done')
 
-print('Preprocessing Data')
-data, features_names_preprocess = preprocessing.preprocess_data(df = df)
+print('Preprocessing Data:')
 
-print('Looking for best model')
-best_estimator_name, best_estimator, best_score = evaluation.evaluate_model(data = data)
+training_data, features_names_preprocess, X_test_preprocess = preprocessing.preprocess_data(df_train,df_test)
+print('done /n')
 
-print('Explain model')
-interpretability.explain(estimator = best_estimator, estimator_type = best_estimator_name, feature_names = features_names_preprocess,data = data[0])
+print('Looking for best model:')
+
+best_estimator_name, best_estimator, best_score = evaluation.evaluate_model(data = training_data)
+print('done')
+
+print('Using best model to submit predictions:')
+
+y_pred = df_test[['INDEX','TARGET_FLAG']].copy()
+y_pred['TARGET_FLAG'] = best_estimator.predict(X_test_preprocess)
+y_pred.to_csv('submission/submission.csv',index = False)
+print('done')

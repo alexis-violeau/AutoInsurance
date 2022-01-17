@@ -11,10 +11,12 @@ def load_data(path = 'data/auto-insurance-fall-2017/'):
     Return:
         dataset (pandas.Dataframe)
     """    
-    
-    df = pd.read_csv(path + 'train_auto.csv')
- 
+    df_train = pd.read_csv(path + 'train_auto.csv')
+    df_test = pd.read_csv(path + 'test_auto.csv')
+
     for col in amount_col:
-        df[col] = df[col].str[1:].str.replace(',','').astype(float)
+        df_train[col] = df_train[col].str[1:].str.replace(',','').astype(float)
+        df_test[col] = df_test[col].str[1:].str.replace(',','').astype(float)
+
  
-    return df  
+    return df_train, df_test
