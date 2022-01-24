@@ -26,6 +26,14 @@ def preprocess_data(df_train,df_test):
 
     df_train['HIGHSPC'] = df_train.JOB.isin(['Doctor','Lawyer','Manager'])
     df_test['HIGHSPC'] = df_test.JOB.isin(['Doctor','Lawyer','Manager'])
+    
+    # Fill nan value by mean value for quantitative features
+    df_train[quant_features] = df_train[quant_features].fillna(df_train[quant_features].mean())
+    df_test[quant_features] = df_test[quant_features].fillna(df_test[quant_features].mean())
+
+    # Fill nan value by mode value for categorical features
+    df_train[cat_features] = df_train[cat_features].fillna(df_train[cat_features].mode())
+    df_test[cat_features] = df_test[cat_features].fillna(df_test[cat_features].mode())
 
     
     # We one hot encode categorical features and scale numerical features
